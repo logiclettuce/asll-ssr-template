@@ -1,0 +1,14 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { getUser } from "src/api/auth";
+import Logout from "@components/logout.astro";
+const user = await getUser(Astro.cookies);
+if (user == null) return Astro.redirect("/login", 302);
+const email = user!!.email;
+---
+
+<Layout>
+  <h1 class="bg-gray">Hello world</h1>
+  <h2>User name is {email}</h2>
+  <Logout />
+</Layout>

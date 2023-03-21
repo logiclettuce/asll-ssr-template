@@ -1,0 +1,7 @@
+<button onclick="logoutHandler()">Logout</button>
+<script is:inline>
+  const logoutHandler = async () => {
+    await fetch("/auth/logout", { method: "POST" });
+    document.location.href = "/login";
+  };
+</script>

@@ -1,0 +1,28 @@
+---
+import Layout from "@layouts/Layout.astro";
+import { getUser } from "src/api/auth";
+const user = await getUser(Astro.cookies);
+if (user) return Astro.redirect("/");
+---
+
+<Layout>
+  <input id="ei" type="email" />
+  <input id="pi" type="password" />
+  <button onclick="loginHandler()">Login</button>
+</Layout>
+
+<script is:inline>
+  const emailInput = document.querySelector("#ei");
+  const passwordInput = document.querySelector("#pi");
+
+  const loginHandler = async () => {
+    const response = await fetch("/auth/login", {
+      method: "POST",
+      body: JSON.stringify({
+        email: emailInput.value,
+        password: passwordInput.value,
+      }),
+    });
+    if (response.status == 200) document.location.href = "/";
+  };
+</script>
